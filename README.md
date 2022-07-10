@@ -2,7 +2,7 @@
 Made By ***Matr1x#5430***  
 ### Loadstring
 ```lua
-loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/NBDMatr1x/Matr1xHub/main/Loader.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/NewMainScript.lua", true))()
 ```
 ### Supported Games
 - Bedwars
