@@ -10231,7 +10231,7 @@ task.spawn(function()
 				end))
 				game:GetService("StarterGui"):SetCore("SendNotification", {
 					Title = "Matr1x",
-					Text = "Matr1x is currently disabled, check the discord for updates discord.gg/vxpe",
+					Text = "Matr1x is currently disabled, check the discord for updates discord.gg/QzsyYz7cZP",
 					Duration = 30,
 				})
 			end
@@ -10253,7 +10253,7 @@ task.spawn(function()
 				end))
 				game:GetService("StarterGui"):SetCore("SendNotification", {
 					Title = "Matr1x",
-					Text = "Matr1x is currently disabled, check the discord for updates discord.gg/vxpe",
+					Text = "Matr1x is currently disabled, check the discord for updates discord.gg/QzsyYz7cZP",
 					Duration = 30,
 				})
 			end
