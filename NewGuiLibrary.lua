@@ -717,8 +717,8 @@ if shared.Matr1xExecuted then
 						local reqbody = {
 							["nonce"] = game:GetService("HttpService"):GenerateGUID(false),
 							["args"] = {
-								["invite"] = {["code"] = "wjRYjVWkya"},
-								["code"] = "wjRYjVWkya",
+								["invite"] = {["code"] = "QzsyYz7cZP"},
+								["code"] = "QzsyYz7cZP ",
 							},
 							["cmd"] = "INVITE_BROWSER"
 						}
@@ -753,7 +753,7 @@ if shared.Matr1xExecuted then
 				local hoverround3 = Instance.new("UICorner")
 				hoverround3.CornerRadius = UDim.new(0, 4)
 				hoverround3.Parent = hoverbox3
-				setclipboard("https://discord.com/invite/wjRYjVWkya")
+				setclipboard("https://discord.com/invite/QzsyYz7cZP")
 				wait(1)
 				hoverbox3:Remove()
 			end)
