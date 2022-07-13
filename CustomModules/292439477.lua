@@ -54,7 +54,7 @@ end
 
 local function createwarning(title, text, delay)
 	pcall(function()
-		local frame = GuiLibrary["CreateNotification"](title, text, delay, "Matr1x/assets/WarningNotification.png")
+		local frame = GuiLibrary["CreateNotification"](title, text, delay, "Matr1xHub/assets/WarningNotification.png")
 		frame.Frame.BackgroundColor3 = Color3.fromRGB(236, 129, 44)
 		frame.Frame.Frame.BackgroundColor3 = Color3.fromRGB(236, 129, 44)
 	end)
@@ -85,7 +85,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1Hub/main/"..path:gsub("Matr1x/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1Hub/main/"..path:gsub("Matr1xHub/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -2118,7 +2118,7 @@ print("done3")
 runcode(function()
 	local Overlay = GuiLibrary.CreateCustomWindow({
 		["Name"] = "Overlay", 
-		["Icon"] = "Matr1x/assets/TargetIcon1.png",
+		["Icon"] = "Matr1xHub/assets/TargetIcon1.png",
 		["IconSize"] = 16
 	})
 	local label = Instance.new("TextLabel")
@@ -2135,7 +2135,7 @@ runcode(function()
 	Overlay["Bypass"] = true
 	GuiLibrary["ObjectsThatCanBeSaved"]["GUIWindow"]["Api"].CreateCustomToggle({
 		["Name"] = "Overlay", 
-		["Icon"] = "Matr1x/assets/TargetIcon1.png", 
+		["Icon"] = "Matr1xHub/assets/TargetIcon1.png", 
 		["Function"] = function(callback)
 			Overlay.SetVisible(callback) 
 			if callback then
