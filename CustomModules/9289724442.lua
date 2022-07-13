@@ -81,9 +81,8 @@ local networkownerfunc = isnetworkowner
 local Matr1xusers = {}
 local function GetURL(scripturl)
 	if shared.Matr1xDeveloper then
-		return readfile("Matr1x/"..scripturl)
+		return readfile("Matr1xHub/"..scripturl)
 	else
-		return game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..scripturl, true)
 	end
 end
 local shalib = loadstring(GetURL("Libraries/sha.lua"))()
@@ -117,7 +116,7 @@ local whitelisted = {
         "3b84ce0a89a50a01299cf4582fd0ed164a8cb24289ac3a4afc3a652e9aacad0a9e17caa2c787cd3cd6a3e7a79a31f2f2c4f6f54a58ae1c53d03226134070f5b9"
 	},
 	owners = {
-		"66ed442039083616d035cd09a9701e6c225bd61278aaad11a759956172144867ed1b0dc1ecc4f779e6084d7d576e49250f8066e2f9ad86340185939a7e79b30f",
+		"e3e40433729ed99c6b480185fb799223403e13a2a9b3c5219f71a5417794ef2192dca154c338400357bb016023e262f1449443316ac4dd6fa7a48efb07876dd1",
         "55273f4b0931f16c1677680328f2784842114d212498a657a79bb5086b3929c173c5e3ca5b41fa3301b62cccf1b241db68a85e3cd9bbe5545b7a8c6422e7f0d2",
         "389b0e57c452ceb5e7c71fa20a75fd11147cef40adef9935f10abf5982d21e2ff01b7357f22855b5ea6536d4b841a337c0e52cfb614049bf47b175addc4f905e"
 	},
@@ -134,7 +133,7 @@ local whitelisted = {
 	}
 }
 pcall(function()
-	whitelisted = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/whitelists/main/whitelist2.json", true))
+	whitelisted = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/whitelists/main/whitelist2.json", true))
 end)
 
 local function BindToRenderStep(name, num, func)
@@ -179,7 +178,7 @@ end
 if place.Updated ~= "2021-11-05T03:38:34.0141481Z" then
 	local image = Instance.new("ImageLabel")
 	image.Size = UDim2.new(1, 0, 1, 36)
-	image.Image = getcustomassetfunc("Matr1x/assets/UpdateImage.png")
+	image.Image = getcustomassetfunc("Matr1xHub/assets/UpdateImage.png")
 	image.Position = UDim2.new(0, 0, 0, -36)
 	image.ZIndex = 9
 	image.Parent = GuiLibrary["MainGui"]
@@ -259,7 +258,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1x/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1xHub/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -1788,7 +1787,7 @@ runcode(function()
 		["Name"] = "New Highlight Chams",
 		["Function"] = function(callback)
 			if callback then
-				local suc = pcall(function() return readfile("Matr1x/Profiles/HighlightCheck.Matr1xsetting.txt") end)
+				local suc = pcall(function() return readfile("Matr1xHub/Profiles/HighlightCheck.Matr1xsetting.txt") end)
 				if not suc then
 					if searchNewHighlight["Enabled"] then
 						searchNewHighlight["ToggleButton"](false)
@@ -1800,7 +1799,7 @@ runcode(function()
 					frame.Parent = GuiLibrary["MainGui"].ScaledGui
 					local frameIcon = Instance.new("ImageLabel")
 					frameIcon.Size = UDim2.new(0, 19, 0, 16)
-					frameIcon.Image = getcustomassetfunc("Matr1x/assets/ProfilesIcon.png")
+					frameIcon.Image = getcustomassetfunc("Matr1xHub/assets/ProfilesIcon.png")
 					frameIcon.Name = "WindowIcon"
 					frameIcon.BackgroundTransparency = 1
 					frameIcon.Position = UDim2.new(0, 10, 0, 13)
@@ -1823,7 +1822,7 @@ runcode(function()
 					local frameShadow = Instance.new("ImageLabel")
 					frameShadow.AnchorPoint = Vector2.new(0.5, 0.5)
 					frameShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-					frameShadow.Image = getcustomassetfunc("Matr1x/assets/WindowBlur.png")
+					frameShadow.Image = getcustomassetfunc("Matr1xHub/assets/WindowBlur.png")
 					frameShadow.BackgroundTransparency = 1
 					frameShadow.ZIndex = -1
 					frameShadow.Size = UDim2.new(1, 6, 1, 6)
@@ -1836,7 +1835,7 @@ runcode(function()
 					frameExitButton.ImageColor3 = Color3.fromRGB(121, 121, 121)
 					frameExitButton.Size = UDim2.new(0, 24, 0, 24)
 					frameExitButton.AutoButtonColor = false
-					frameExitButton.Image = getcustomassetfunc("Matr1x/assets/ExitIcon1.png")
+					frameExitButton.Image = getcustomassetfunc("Matr1xHub/assets/ExitIcon1.png")
 					frameExitButton.Visible = true
 					frameExitButton.Position = UDim2.new(1, -31, 0, 8)
 					frameExitButton.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
@@ -1877,7 +1876,7 @@ runcode(function()
 					framebutton2.Parent = frame
 					framebutton2.MouseButton1Click:connect(function()
 						frame:Remove()
-						writefile("Matr1x/Profiles/HighlightCheck.Matr1xsetting.txt", "")
+						writefile("Matr1xHub/Profiles/HighlightCheck.Matr1xsetting.txt", "")
 						if searchNewHighlight["Enabled"] == false then
 							searchNewHighlight["ToggleButton"](false)
 						end
