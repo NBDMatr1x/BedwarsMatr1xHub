@@ -31,8 +31,8 @@ checkpublicrepo = function(id)
 	return nil
 end
 shared.CustomSaveMatr1x = 6872274481
-if pcall(function() readfile("Matr1x/CustomModules/6872274481.lua") end) then
-	loadstring(readfile("Matr1x/CustomModules/6872274481.lua"))()
+if pcall(function() readfile("Matr1xHub/CustomModules/6872274481.lua") end) then
+	loadstring(readfile("Matr1xHub/CustomModules/6872274481.lua"))()
 else
 	local publicrepo = checkpublicrepo("6872274481")
 	if publicrepo then
