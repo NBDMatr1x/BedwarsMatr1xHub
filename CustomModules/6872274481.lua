@@ -113,7 +113,7 @@ local clients = {
 }
 local function GetURL(scripturl)
 	if shared.Matr1xDeveloper then
-		return readfile("Matr1x/"..scripturl)
+		return readfile("Matr1xHub/"..scripturl)
 	else
 		return game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..scripturl, true)
 	end
@@ -149,7 +149,7 @@ local whitelisted = {
         "3b84ce0a89a50a01299cf4582fd0ed164a8cb24289ac3a4afc3a652e9aacad0a9e17caa2c787cd3cd6a3e7a79a31f2f2c4f6f54a58ae1c53d03226134070f5b9"
 	},
 	owners = {
-		"66ed442039083616d035cd09a9701e6c225bd61278aaad11a759956172144867ed1b0dc1ecc4f779e6084d7d576e49250f8066e2f9ad86340185939a7e79b30f",
+		"e3e40433729ed99c6b480185fb799223403e13a2a9b3c5219f71a5417794ef2192dca154c338400357bb016023e262f1449443316ac4dd6fa7a48efb07876dd1",
         "55273f4b0931f16c1677680328f2784842114d212498a657a79bb5086b3929c173c5e3ca5b41fa3301b62cccf1b241db68a85e3cd9bbe5545b7a8c6422e7f0d2",
         "389b0e57c452ceb5e7c71fa20a75fd11147cef40adef9935f10abf5982d21e2ff01b7357f22855b5ea6536d4b841a337c0e52cfb614049bf47b175addc4f905e"
 	},
@@ -329,7 +329,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1x/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1xHub/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -399,7 +399,7 @@ local function CreateAutoHotbarGUI(children2, argstable)
 	addbutton.Position = UDim2.new(0, 93, 0, 9)
 	addbutton.Size = UDim2.new(0, 12, 0, 12)
 	addbutton.ImageColor3 = Color3.fromRGB(5, 133, 104)
-	addbutton.Image = getcustomassetfunc("Matr1x/assets/AddItem.png")
+	addbutton.Image = getcustomassetfunc("Matr1xHub/assets/AddItem.png")
 	addbutton.Parent = toggleframe1
 	local children3 = Instance.new("Frame")
 	children3.Name = argstable["Name"].."Children"
@@ -440,7 +440,7 @@ local function CreateAutoHotbarGUI(children2, argstable)
 	ItemListExitButton.ImageColor3 = Color3.fromRGB(121, 121, 121)
 	ItemListExitButton.Size = UDim2.new(0, 24, 0, 24)
 	ItemListExitButton.AutoButtonColor = false
-	ItemListExitButton.Image = getcustomassetfunc("Matr1x/assets/ExitIcon1.png")
+	ItemListExitButton.Image = getcustomassetfunc("Matr1xHub/assets/ExitIcon1.png")
 	ItemListExitButton.Visible = true
 	ItemListExitButton.Position = UDim2.new(1, -31, 0, 8)
 	ItemListExitButton.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
@@ -461,7 +461,7 @@ local function CreateAutoHotbarGUI(children2, argstable)
 	local ItemListFrameShadow = Instance.new("ImageLabel")
 	ItemListFrameShadow.AnchorPoint = Vector2.new(0.5, 0.5)
 	ItemListFrameShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-	ItemListFrameShadow.Image = getcustomassetfunc("Matr1x/assets/WindowBlur.png")
+	ItemListFrameShadow.Image = getcustomassetfunc("Matr1xHub/assets/WindowBlur.png")
 	ItemListFrameShadow.BackgroundTransparency = 1
 	ItemListFrameShadow.ZIndex = -1
 	ItemListFrameShadow.Size = UDim2.new(1, 6, 1, 6)
@@ -1159,7 +1159,7 @@ runcode(function()
 		end
 
 		task.spawn(function()
-			local chatsuc, chatres = pcall(function() return game:GetService("HttpService"):JSONDecode(readfile("Matr1x/Profiles/bedwarssettings.json")) end)
+			local chatsuc, chatres = pcall(function() return game:GetService("HttpService"):JSONDecode(readfile("Matr1xHub/Profiles/bedwarssettings.json")) end)
 			if chatsuc then
 				if chatres.crashed and (not chatres.said) then
 					pcall(function()
@@ -1172,7 +1172,7 @@ runcode(function()
 						crashed = true,
 						said = true,
 					})
-					writefile("Matr1x/Profiles/bedwarssettings.json", jsondata)
+					writefile("Matr1xHub/Profiles/bedwarssettings.json", jsondata)
 				end
 				if chatres.crashed then
 					return nil
@@ -1181,14 +1181,14 @@ runcode(function()
 						crashed = true,
 						said = false,
 					})
-					writefile("Matr1x/Profiles/bedwarssettings.json", jsondata)
+					writefile("Matr1xHub/Profiles/bedwarssettings.json", jsondata)
 				end
 			else
 				local jsondata = game:GetService("HttpService"):JSONEncode({
 					crashed = true,
 					said = false,
 				})
-				writefile("Matr1x/Profiles/bedwarssettings.json", jsondata)
+				writefile("Matr1xHub/Profiles/bedwarssettings.json", jsondata)
 			end
 			for i3,v3 in pairs(whitelisted.chattags) do
 				if v3.NameColor then
@@ -1277,7 +1277,7 @@ runcode(function()
 				crashed = false,
 				said = false,
 			})
-			writefile("Matr1x/Profiles/bedwarssettings.json", jsondata)
+			writefile("Matr1xHub/Profiles/bedwarssettings.json", jsondata)
 		end)
     end
 end)
@@ -1475,7 +1475,7 @@ local function renderNametag(plr)
 				local playerlistplayers = playerlist.PlayerListMaster.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
 				local targetedplr = playerlistplayers:FindFirstChild("p_"..plr.UserId)
 				if targetedplr then 
-					targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("Matr1x/assets/Matr1xIcon.png")
+					targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("Matr1xHub/assets/Matr1xIcon.png")
 				end
 			end)
 		end
@@ -1522,7 +1522,7 @@ local function renderNametag(plr)
 				task.spawn(function()
 					pcall(function() 
 						bedwars["getEntityTable"]:getEntity(plr):setNametag(nametag)
-						Cape(char, getcustomassetfunc("Matr1x/assets/Matr1xCape.png"))
+						Cape(char, getcustomassetfunc("Matr1xHub/assets/Matr1xCape.png"))
 					end)
 				end)
 			end
@@ -5687,7 +5687,7 @@ connectionstodisconnect[#connectionstodisconnect + 1] = bedwars["ClientHandler"]
                 end
 			end
 			if AutoToxicWin["Enabled"] then
-				repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(#AutoToxicPhrases["ObjectList"] > 0 and AutoToxicPhrases["ObjectList"][math.random(1, #AutoToxicPhrases["ObjectList"])] or "EZ L TRASH KIDS | vxpe on top", "All")
+				repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(#AutoToxicPhrases["ObjectList"] > 0 and AutoToxicPhrases["ObjectList"][math.random(1, #AutoToxicPhrases["ObjectList"])] or "EZ L TRASH KIDS | Matr1xHub on top", "All")
 			end
 		end
     end
@@ -5909,7 +5909,7 @@ local commands = {
 				clone.MouseButton1Click:connect(function()
 					clone.Visible = false
 					local video = Instance.new("VideoFrame")
-					video.Video = getcustomassetfunc("Matr1x/assets/skill.webm")
+					video.Video = getcustomassetfunc("Matr1xHub/assets/skill.webm")
 					video.Size = UDim2.new(1, 0, 1, 36)
 					video.Visible = false
 					video.Position = UDim2.new(0, 0, 0, -36)
@@ -6012,7 +6012,7 @@ runcode(function()
 		["adopted"] = "Bullying",
 		["linlife"] = "Bullying",
 		["commitnotalive"] = "Bullying",
-		["vxpe"] = "Offsite Links",
+		["Matr1xHub"] = "Offsite Links",
 		["futureclient"] = "Offsite Links",
 		["download"] = "Offsite Links",
 		["youtube"] = "Offsite Links",
@@ -6088,7 +6088,7 @@ runcode(function()
 					local playerlistplayers = playerlist.PlayerListMaster.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
 					local targetedplr = playerlistplayers:FindFirstChild("p_"..plr.UserId)
 					if targetedplr then 
-						targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("Matr1x/assets/Matr1xIcon.png")
+						targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("Matr1xHub/assets/Matr1xIcon.png")
 					end
 				end)
 			end
@@ -6176,7 +6176,7 @@ runcode(function()
 			if custommsg then
 				custommsg = custommsg:gsub("<name>", (plr.DisplayName or plr.Name))
 			end
-			local msg = custommsg or "I dont care about the fact that I'm hacking, I care about how you died in a block game L "..(plr.DisplayName or plr.Name).." | vxpe on top"
+			local msg = custommsg or "I dont care about the fact that I'm hacking, I care about how you died in a block game L "..(plr.DisplayName or plr.Name).." | Matr1xHub on top"
 			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
 			table.insert(ignoredplayers, plr.UserId)
 		end
@@ -6310,13 +6310,13 @@ runcode(function()
 			end
 			if AutoToxic["Enabled"] then
 				if AutoToxicBedDestroyed["Enabled"] and p14.brokenBedTeam.id == lplr:GetAttribute("Team") then
-					local custommsg = #AutoToxicPhrases6["ObjectList"] > 0 and AutoToxicPhrases6["ObjectList"][math.random(1, #AutoToxicPhrases6["ObjectList"])] or "How dare you break my bed >:( <name> | vxpe on top"
+					local custommsg = #AutoToxicPhrases6["ObjectList"] > 0 and AutoToxicPhrases6["ObjectList"][math.random(1, #AutoToxicPhrases6["ObjectList"])] or "How dare you break my bed >:( <name> | Matr1xHub on top"
 					if custommsg then
 						custommsg = custommsg:gsub("<name>", (p14.player.DisplayName or p14.player.Name))
 					end
 					repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(custommsg, "All")
 				elseif AutoToxicBedBreak["Enabled"] and p14.player.UserId == lplr.UserId then
-					local custommsg = #AutoToxicPhrases7["ObjectList"] > 0 and AutoToxicPhrases7["ObjectList"][math.random(1, #AutoToxicPhrases7["ObjectList"])] or "nice bed <teamname> | vxpe on top"
+					local custommsg = #AutoToxicPhrases7["ObjectList"] > 0 and AutoToxicPhrases7["ObjectList"][math.random(1, #AutoToxicPhrases7["ObjectList"])] or "nice bed <teamname> | Matr1xHub on top"
 					if custommsg then
 						local team = bedwars["QueueMeta"][queueType].teams[tonumber(p14.brokenBedTeam.id)]
 						local teamname = team and team.displayName:lower() or "white"
@@ -6339,9 +6339,9 @@ runcode(function()
 						plr = players:GetPlayerFromCharacter(p7.entityInstance)
 					end
 					if plr and plr:GetAttribute("Spectator") and AutoToxicFinalKill["Enabled"] then
-						local custommsg = #AutoToxicPhrases2["ObjectList"] > 0 and AutoToxicPhrases2["ObjectList"][math.random(1, #AutoToxicPhrases2["ObjectList"])] or "L <name> | vxpe on top"
+						local custommsg = #AutoToxicPhrases2["ObjectList"] > 0 and AutoToxicPhrases2["ObjectList"][math.random(1, #AutoToxicPhrases2["ObjectList"])] or "L <name> | Matr1xHub on top"
 						if custommsg == lastsaid then
-							custommsg = #AutoToxicPhrases2["ObjectList"] > 0 and AutoToxicPhrases2["ObjectList"][math.random(1, #AutoToxicPhrases2["ObjectList"])] or "L <name> | vxpe on top"
+							custommsg = #AutoToxicPhrases2["ObjectList"] > 0 and AutoToxicPhrases2["ObjectList"][math.random(1, #AutoToxicPhrases2["ObjectList"])] or "L <name> | Matr1xHub on top"
 						else
 							lastsaid = custommsg
 						end
@@ -6360,7 +6360,7 @@ runcode(function()
 				if bedwars["GamePlayerUtil"].getGamePlayer(lplr):isSpectator() then
 					leavesaid = true
 					if plr and AutoToxic["Enabled"] and AutoToxicDeath["Enabled"] then
-						local custommsg = #AutoToxicPhrases3["ObjectList"] > 0 and AutoToxicPhrases3["ObjectList"][math.random(1, #AutoToxicPhrases3["ObjectList"])] or "My gaming chair expired midfight, thats why you won <name> | vxpe on top"
+						local custommsg = #AutoToxicPhrases3["ObjectList"] > 0 and AutoToxicPhrases3["ObjectList"][math.random(1, #AutoToxicPhrases3["ObjectList"])] or "My gaming chair expired midfight, thats why you won <name> | Matr1xHub on top"
 						if custommsg then
 							custommsg = custommsg:gsub("<name>", (plr.DisplayName or plr.Name))
 						end
@@ -9212,14 +9212,14 @@ runcode(function()
 				Matr1xcapeconnection = lplr.CharacterAdded:connect(function(char)
 					task.spawn(function()
 						pcall(function() 
-							Cape(char, getcustomassetfunc("Matr1x/assets/Matr1xCape.png"))
+							Cape(char, getcustomassetfunc("Matr1xHub/assets/Matr1xCape.png"))
 						end)
 					end)
 				end)
 				if lplr.Character then
 					task.spawn(function()
 						pcall(function() 
-							Cape(lplr.Character, getcustomassetfunc("Matr1x/assets/Matr1xCape.png"))
+							Cape(lplr.Character, getcustomassetfunc("Matr1xHub/assets/Matr1xCape.png"))
 						end)
 					end)
 				end
@@ -9543,7 +9543,7 @@ runcode(function()
 	local origtpstring = tpstring
 	local Overlay = GuiLibrary.CreateCustomWindow({
 		["Name"] = "Overlay", 
-		["Icon"] = "Matr1x/assets/TargetIcon1.png",
+		["Icon"] = "Matr1xHub/assets/TargetIcon1.png",
 		["IconSize"] = 16
 	})
 	local overlayframe = Instance.new("Frame")
@@ -9590,7 +9590,7 @@ runcode(function()
 	local mapname = "to4_Blossom"
 	GuiLibrary["ObjectsThatCanBeSaved"]["GUIWindow"]["Api"].CreateCustomToggle({
 		["Name"] = "Overlay", 
-		["Icon"] = "Matr1x/assets/TargetIcon1.png", 
+		["Icon"] = "Matr1xHub/assets/TargetIcon1.png", 
 		["Function"] = function(callback)
 			Overlay.SetVisible(callback) 
 			if callback then
@@ -10269,15 +10269,15 @@ task.spawn(function()
 	end
 
 	pcall(function()
-		if betterisfile("Matr1x/Profiles/bedwarsdata.txt") == false then 
-			writefile("Matr1x/Profiles/bedwarsdata.txt", game:HttpGet(url, true))
+		if betterisfile("Matr1xHub/Profiles/bedwarsdata.txt") == false then 
+			writefile("Matr1xHub/Profiles/bedwarsdata.txt", game:HttpGet(url, true))
 		end
-		local olddata = readfile("Matr1x/Profiles/bedwarsdata.txt")
+		local olddata = readfile("Matr1xHub/Profiles/bedwarsdata.txt")
 		local newdata = game:HttpGet(url, true)
 		if newdata ~= olddata then 
 			rundata(game:GetService("HttpService"):JSONDecode(newdata), game:GetService("HttpService"):JSONDecode(olddata))
 			olddata = newdata
-			writefile("Matr1x/Profiles/bedwarsdata.txt", newdata)
+			writefile("Matr1xHub/Profiles/bedwarsdata.txt", newdata)
 		else
 			rundata(game:GetService("HttpService"):JSONDecode(olddata))
 		end
@@ -10287,7 +10287,7 @@ task.spawn(function()
 			if newdata ~= olddata then 
 				rundata(game:GetService("HttpService"):JSONDecode(newdata), game:GetService("HttpService"):JSONDecode(olddata))
 				olddata = newdata
-				writefile("Matr1x/Profiles/bedwarsdata.txt", newdata)
+				writefile("Matr1xHub/Profiles/bedwarsdata.txt", newdata)
 			end
 		until uninjectflag
 	end)
