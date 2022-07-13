@@ -33,8 +33,8 @@ end
 
 shared.CustomSaveMatr1x = 8542275097
 if shared.Matr1xDeveloper then
-	if pcall(function() readfile("Matr1x/CustomModules/8542275097.lua") end) then
-		loadstring(readfile("Matr1x/CustomModules/8542275097.lua"))()
+	if pcall(function() readfile("Matr1xHub/CustomModules/8542275097.lua") end) then
+		loadstring(readfile("Matr1xHub/CustomModules/8542275097.lua"))()
 	end
 else
 	local publicrepo = checkpublicrepo("8542275097")
