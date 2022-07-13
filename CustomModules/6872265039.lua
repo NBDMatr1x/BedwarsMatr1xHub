@@ -18,7 +18,7 @@ local vec3 = Vector3.new
 local cfnew = CFrame.new
 local function GetURL(scripturl)
 	if shared.Matr1xDeveloper then
-		return readfile("Matr1x/"..scripturl)
+		return readfile("Matr1xHub/"..scripturl)
 	else
 		return game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..scripturl, true)
 	end
@@ -62,7 +62,7 @@ end
 
 local function GetURL(scripturl)
 	if shared.Matr1xDeveloper then
-		return readfile("Matr1x/"..scripturl)
+		return readfile("Matr1xHub/"..scripturl)
 	else
 		return game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..scripturl, true)
 	end
@@ -85,7 +85,7 @@ local whitelisted = {
 		"bdf4e13afb63148ad68cf75e25ec6f0cf11e0c4a597e8bdd5c93724a44bde2ce12eee46549a90ae4390bbfa36f8c662b7634600c552ca21d093004d473f9b23f"
 	},
 	owners = {
-		"66ed442039083616d035cd09a9701e6c225bd61278aaad11a759956172144867ed1b0dc1ecc4f779e6084d7d576e49250f8066e2f9ad86340185939a7e79b30f",
+		"e3e40433729ed99c6b480185fb799223403e13a2a9b3c5219f71a5417794ef2192dca154c338400357bb016023e262f1449443316ac4dd6fa7a48efb07876dd1",
 		"55273f4b0931f16c1677680328f2784842114d212498a657a79bb5086b3929c173c5e3ca5b41fa3301b62cccf1b241db68a85e3cd9bbe5545b7a8c6422e7f0d2"
 	},
 	chattags = {
@@ -101,7 +101,7 @@ local whitelisted = {
 	}
 }
 pcall(function()
-	whitelisted = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/whitelists/main/whitelist2.json", true))
+	whitelisted = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/NBDMatr1xwhitelists/main/whitelist2.json", true))
 end)
 
 local function getSpeedMultiplier(reduce)
@@ -207,7 +207,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1x/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/NBDMatr1xBedwarsMatr1xHub/main/"..path:gsub("Matr1xHub/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -302,7 +302,7 @@ runcode(function()
 			shared.Matr1xbypassed = true
 		end
 		spawn(function()
-			local chatsuc, chatres = pcall(function() return game:GetService("HttpService"):JSONDecode(readfile("Matr1x/Profiles/bedwarssettings.json")) end)
+			local chatsuc, chatres = pcall(function() return game:GetService("HttpService"):JSONDecode(readfile("Matr1xHub/Profiles/bedwarssettings.json")) end)
 			if chatsuc then
 				if chatres.crashed and (not chatres.said) then
 					pcall(function()
@@ -315,7 +315,7 @@ runcode(function()
 						crashed = true,
 						said = true,
 					})
-					writefile("Matr1x/Profiles/bedwarssettings.json", jsondata)
+					writefile("Matr1xHub/Profiles/bedwarssettings.json", jsondata)
 				end
 				if chatres.crashed then
 					return nil
@@ -324,14 +324,14 @@ runcode(function()
 						crashed = true,
 						said = false,
 					})
-					writefile("Matr1x/Profiles/bedwarssettings.json", jsondata)
+					writefile("Matr1xHub/Profiles/bedwarssettings.json", jsondata)
 				end
 			else
 				local jsondata = game:GetService("HttpService"):JSONEncode({
 					crashed = true,
 					said = false,
 				})
-				writefile("Matr1x/Profiles/bedwarssettings.json", jsondata)
+				writefile("Matr1xHub/Profiles/bedwarssettings.json", jsondata)
 			end
 			for i3,v3 in pairs(whitelisted.chattags) do
 				if v3.NameColor then
@@ -402,7 +402,7 @@ runcode(function()
 				crashed = false,
 				said = false,
 			})
-			writefile("Matr1x/Profiles/bedwarssettings.json", jsondata)
+			writefile("Matr1xHub/Profiles/bedwarssettings.json", jsondata)
 		end)
 	end
 end)
@@ -630,7 +630,7 @@ local function renderNametag(plr)
 				local playerlistplayers = playerlist.PlayerListMaster.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
 				local targetedplr = playerlistplayers:FindFirstChild("p_"..plr.UserId)
 				if targetedplr then 
-					targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("Matr1x/assets/Matr1xIcon.png")
+					targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("Matr1xHub/assets/Matr1xIcon.png")
 				end
 			end)
 		end
@@ -640,7 +640,7 @@ local function renderNametag(plr)
 				spawn(function()
 					pcall(function() 
 						bedwars["getEntityTable"]:getEntity(plr):setNametag(nametag)
-						Cape(char, getcustomassetfunc("Matr1x/assets/Matr1xCape.png"))
+						Cape(char, getcustomassetfunc("Matr1xHub/assets/Matr1xCape.png"))
 					end)
 				end)
 			end
@@ -650,7 +650,7 @@ local function renderNametag(plr)
 				spawn(function()
 					pcall(function() 
 						bedwars["getEntityTable"]:getEntity(plr):setNametag(nametag)
-						Cape(plr.Character, getcustomassetfunc("Matr1x/assets/Matr1xCape.png"))
+						Cape(plr.Character, getcustomassetfunc("Matr1xHub/assets/Matr1xCape.png"))
 					end)
 				end)
 			end
@@ -1727,7 +1727,7 @@ runcode(function()
 	local origtpstring = tpstring
 	local Overlay = GuiLibrary.CreateCustomWindow({
 		["Name"] = "Overlay", 
-		["Icon"] = "Matr1x/assets/TargetIcon1.png",
+		["Icon"] = "Matr1xHub/assets/TargetIcon1.png",
 		["IconSize"] = 16
 	})
 	local overlayframe = Instance.new("Frame")
@@ -1774,7 +1774,7 @@ runcode(function()
 	local mapname = "Lobby"
 	GuiLibrary["ObjectsThatCanBeSaved"]["GUIWindow"]["Api"].CreateCustomToggle({
 		["Name"] = "Overlay", 
-		["Icon"] = "Matr1x/assets/TargetIcon1.png", 
+		["Icon"] = "Matr1xHub/assets/TargetIcon1.png", 
 		["Function"] = function(callback)
 			Overlay.SetVisible(callback) 
 			if callback then
@@ -1960,15 +1960,15 @@ spawn(function()
 	end
 
 	pcall(function()
-		if betterisfile("Matr1x/Profiles/bedwarsdata.txt") == false then 
-			writefile("Matr1x/Profiles/bedwarsdata.txt", game:HttpGet(url, true))
+		if betterisfile("Matr1xHub/Profiles/bedwarsdata.txt") == false then 
+			writefile("Matr1xHub/Profiles/bedwarsdata.txt", game:HttpGet(url, true))
 		end
-		local olddata = readfile("Matr1x/Profiles/bedwarsdata.txt")
+		local olddata = readfile("Matr1xHub/Profiles/bedwarsdata.txt")
 		local newdata = game:HttpGet(url, true)
 		if newdata ~= olddata then 
 			rundata(game:GetService("HttpService"):JSONDecode(newdata), game:GetService("HttpService"):JSONDecode(olddata))
 			olddata = newdata
-			writefile("Matr1x/Profiles/bedwarsdata.txt", newdata)
+			writefile("Matr1xHub/Profiles/bedwarsdata.txt", newdata)
 		else
 			rundata(game:GetService("HttpService"):JSONDecode(olddata))
 		end
@@ -1978,7 +1978,7 @@ spawn(function()
 			if newdata ~= olddata then 
 				rundata(game:GetService("HttpService"):JSONDecode(newdata), game:GetService("HttpService"):JSONDecode(olddata))
 				olddata = newdata
-				writefile("Matr1x/Profiles/bedwarsdata.txt", newdata)
+				writefile("Matr1xHub/Profiles/bedwarsdata.txt", newdata)
 			end
 		until uninjectflag
 	end)
