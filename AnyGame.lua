@@ -22,10 +22,10 @@ local betterisfile = function(file)
 end
 local function GetURL(scripturl)
 	if shared.Matr1xDeveloper then
-		if not betterisfile("Matr1x/"..scripturl) then
-			error("File not found : Matr1x/"..scripturl)
+		if not betterisfile("Matr1xHub/"..scripturl) then
+			error("File not found : Matr1xHub/"..scripturl)
 		end
-		return readfile("Matr1x/"..scripturl)
+		return readfile("Matr1xHub/"..scripturl)
 	else
 		local res = game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..scripturl, true)
 		assert(res ~= "404: Not Found", "File not found")
@@ -135,7 +135,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1Hub/main/"..path:gsub("Matr1x/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1xHub/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -266,7 +266,7 @@ local radarcam = Instance.new("Camera")
 radarcam.FieldOfView = 45
 local Radar = GuiLibrary.CreateCustomWindow({
 	["Name"] = "Radar", 
-	["Icon"] = "Matr1x/assets/RadarIcon1.png",
+	["Icon"] = "Matr1xHub/assets/RadarIcon1.png",
 	["IconSize"] = 16
 })
 local RadarColor = Radar.CreateColorSlider({
@@ -323,7 +323,7 @@ players.PlayerRemoving:connect(function(plr)
 end)
 GuiLibrary["ObjectsThatCanBeSaved"]["GUIWindow"]["Api"].CreateCustomToggle({
 	["Name"] = "Radar", 
-	["Icon"] = "Matr1x/assets/RadarIcon2.png", 
+	["Icon"] = "Matr1xHub/assets/RadarIcon2.png", 
 	["Function"] = function(callback)
 		Radar.SetVisible(callback) 
 		if callback then
@@ -2001,7 +2001,7 @@ local Arrows = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].Create
 						thing.AnchorPoint = Vector2.new(0.5, 0.5)
 						thing.Position = UDim2.new(0.5, 0, 0.5, 0)
 						thing.Visible = false
-						thing.Image = getcustomassetfunc("Matr1x/assets/ArrowIndicator.png")
+						thing.Image = getcustomassetfunc("Matr1xHub/assets/ArrowIndicator.png")
 						thing.Name = plr.Name
 						thing.Parent = ArrowsFolder
 					end
@@ -3616,14 +3616,14 @@ runcode(function()
 				Matr1xcapeconnection = lplr.CharacterAdded:connect(function(char)
 					spawn(function()
 						pcall(function() 
-							Cape(char, getcustomassetfunc("Matr1x/assets/Matr1xCape.png"))
+							Cape(char, getcustomassetfunc("Matr1xHub/assets/Matr1xCape.png"))
 						end)
 					end)
 				end)
 				if lplr.Character then
 					spawn(function()
 						pcall(function() 
-							Cape(lplr.Character, getcustomassetfunc("Matr1x/assets/Matr1xCape.png"))
+							Cape(lplr.Character, getcustomassetfunc("Matr1xHub/assets/Matr1xCape.png"))
 						end)
 					end)
 				end
