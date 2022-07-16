@@ -941,7 +941,7 @@ if shared.Matr1xExecuted then
 		windowbackbutton.MouseLeave:connect(function()
 			windowbackbutton.ImageTransparency = 0.55
 		end)
-		windowbackbutton.Image = getcustomassetfunc("Matr1x/assets/BackIcon.png")
+		windowbackbutton.Image = getcustomassetfunc("Matr1xHub/assets/BackIcon.png")
 		windowbackbutton.Parent = windowtitle
 		dragGUI(windowtitle)
 		windowapi["ExpandToggle"] = function() end
