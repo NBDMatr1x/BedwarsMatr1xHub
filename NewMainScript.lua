@@ -38,7 +38,7 @@ end
 
 local function checkassetversion()
 	local req = requestfunc({
-		Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/assetsversion.dat",
+		Url = "https://raw.githubusercontent.com/NBDMatr1xBedwars/Matr1xHub/main/assetsversion.dat",
 		Method = "GET"
 	})
 	if req.StatusCode == 200 then
@@ -150,7 +150,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1x/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1xHub/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -679,7 +679,7 @@ GUI.CreateDivider()
 --GUI.CreateCustomButton("Text GUIVertical", "Matr1xHub/assets/TextGUIIcon3.png", UDim2.new(1, -56, 0, 15), function() end, function() end)
 local TextGui = GuiLibrary.CreateCustomWindow({
 	["Name"] = "Text GUI", 
-	["Icon"] = "Matr1x/assets/TextGUIIcon1.png", 
+	["Icon"] = "Matr1xHub/assets/TextGUIIcon1.png", 
 	["IconSize"] = 21
 })
 local TextGuiCircleObject = {["CircleList"] = {}}
