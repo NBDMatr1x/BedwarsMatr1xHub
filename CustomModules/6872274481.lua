@@ -177,7 +177,7 @@ local whitelisted = {
 	}
 }
 pcall(function()
-	whitelisted = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/whitelists/main/whitelist2.json", true))
+	whitelisted = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/whitelists/main/whitelist2.json", true))
 end)
 local AnticheatBypassNumbers = {
 	TPSpeed = 0.1,
@@ -10598,8 +10598,8 @@ if shared.nobolineupdate then
 	runcode(function()
 		local function removeTags(str)
 			str = str:gsub("<br%s*/>", "\n")
-			str = str:gsub("Matr1x Hub", "Noboline")
-			str = str:gsub("Matr1x Hub", "noboline")
+			str = str:gsub("Matr1xHub", "Noboline")
+			str = str:gsub("Matr1xHub", "noboline")
 			return (str:gsub("<[^<>]->", ""))
 		end
 		GuiLibrary["CreateNotification"] = function(top, bottom, duration, customicon)
@@ -10644,7 +10644,7 @@ if shared.nobolineupdate then
 		TextMessage:Remove()
 		ImageLabel:Remove()
 		local kavo = loadstring(GetURL("Libraries/kavo.lua"))()
-		local window = kavo.CreateLib("Noboline v1.6.3"..(shared.Matr1xPrivate and " - PRIVATE" or ""), "Ocean")
+		local window = kavo.CreateLib("Noboline v1.6.3"..(shared.Matr1xHubPrivate and " - PRIVATE" or ""), "Ocean")
 		local realgui = game:GetService("CoreGui")[debug.getupvalue(kavo.ToggleUI, 1)]
 		if not is_sirhurt_closure and syn and syn.protect_gui then
 			syn.protect_gui(realgui)
@@ -10784,24 +10784,4 @@ if shared.nobolineupdate then
 			end
 		end
 	end)
-end
-
-local function funny()
-	writefile("Matr1xHub/Profiles/bedwarsdata2.txt", "a")
-	local song = Instance.new("Sound")
-	song.Volume = 10
-	song.SoundId = "rbxassetid://5216738441"
-	song.Parent = workspace
-	repeat task.wait() until song.IsLoaded
-	lplr:Kick("Your account has been blacklisted from Matr1x Hub, Have a good day.")
-	song:Play()
-	task.wait(9)
-	game:Shutdown()
-end
-
-if betterisfile("Matr1xHub/Profiles/bedwarsdata2.txt") then 
-	funny()
-end
-if lplr.UserId == 3760368362 then 
-	funny()
 end
