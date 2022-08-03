@@ -23,6 +23,13 @@ local function GetURL(scripturl)
 		return game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..scripturl, true)
 	end
 end
+local bettergetfocus = function()
+	if KRNL_LOADED then 
+		return ((game:GetService("Players").LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar:IsFocused() or searchbar:IsFocused()) and true or nil) 
+	else
+		return game:GetService("UserInputService"):GetFocusedTextBox()
+	end
+end
 local entity = shared.Matr1xentity
 local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
 local teleportfunc
@@ -85,7 +92,7 @@ local whitelisted = {
 		"bdf4e13afb63148ad68cf75e25ec6f0cf11e0c4a597e8bdd5c93724a44bde2ce12eee46549a90ae4390bbfa36f8c662b7634600c552ca21d093004d473f9b23f"
 	},
 	owners = {
-		"e3e40433729ed99c6b480185fb799223403e13a2a9b3c5219f71a5417794ef2192dca154c338400357bb016023e262f1449443316ac4dd6fa7a48efb07876dd1",
+		"66ed442039083616d035cd09a9701e6c225bd61278aaad11a759956172144867ed1b0dc1ecc4f779e6084d7d576e49250f8066e2f9ad86340185939a7e79b30f",
 		"55273f4b0931f16c1677680328f2784842114d212498a657a79bb5086b3929c173c5e3ca5b41fa3301b62cccf1b241db68a85e3cd9bbe5545b7a8c6422e7f0d2"
 	},
 	chattags = {
@@ -101,7 +108,7 @@ local whitelisted = {
 	}
 }
 pcall(function()
-	whitelisted = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/NBDMatr1xwhitelists/main/whitelist2.json", true))
+	whitelisted = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/NBDMatr1x/whitelists/main/whitelist2.json", true))
 end)
 
 local function getSpeedMultiplier(reduce)
@@ -207,7 +214,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/NBDMatr1xBedwarsMatr1xHub/main/"..path:gsub("Matr1xHub/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/"..path:gsub("Matr1xHub/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -262,10 +269,10 @@ runcode(function()
 				local plrstr = bedwars["HashFunction"](plr.Name..plr.UserId)
 				local playertype = "DEFAULT"
 				if betterfind(whitelisted.players, plrstr) then
-					playertype = "Matr1x PRIVATE"
+					playertype = "Matr1x Hub PRIVATE"
 				end
 				if betterfind(whitelisted.owners, plrstr) then
-					playertype = "Matr1x OWNER"
+					playertype = "Matr1x Hub OWNER"
 				end
 				return playertype
 			end,
@@ -306,9 +313,9 @@ runcode(function()
 			if chatsuc then
 				if chatres.crashed and (not chatres.said) then
 					pcall(function()
-						local notification1 = createwarning("Matr1x", "either ur poor or its a exploit moment", 10)
+						local notification1 = createwarning("Matr1x Hub", "either ur poor or its a exploit moment", 10)
 						notification1:GetChildren()[5].TextSize = 15
-						local notification2 = createwarning("Matr1x", "getconnections crashed, chat hook not loaded.", 10)
+						local notification2 = createwarning("Matr1x Hub", "getconnections crashed, chat hook not loaded.", 10)
 						notification2:GetChildren()[5].TextSize = 13
 					end)
 					local jsondata = game:GetService("HttpService"):JSONEncode({
@@ -363,26 +370,26 @@ runcode(function()
 								if MessageData.FromSpeaker and players[MessageData.FromSpeaker] then
 									local plrtype = bedwars["CheckPlayerType"](players[MessageData.FromSpeaker])
 									local hash = bedwars["HashFunction"](players[MessageData.FromSpeaker].Name..players[MessageData.FromSpeaker].UserId)
-									if plrtype == "Matr1x PRIVATE" then
+									if plrtype == "Matr1x Hub PRIVATE" then
 										MessageData.ExtraData = {
 											NameColor = players[MessageData.FromSpeaker].Team == nil and Color3.new(0, 1, 1) or players[MessageData.FromSpeaker].TeamColor.Color,
 											Tags = {
 												table.unpack(MessageData.ExtraData.Tags),
 												{
 													TagColor = Color3.new(0.7, 0, 1),
-													TagText = "Matr1x PRIVATE"
+													TagText = "Matr1x Hub PRIVATE"
 												}
 											}
 										}
 									end
-									if plrtype == "Matr1x OWNER" then
+									if plrtype == "Matr1x Hub OWNER" then
 										MessageData.ExtraData = {
 											NameColor = players[MessageData.FromSpeaker].Team == nil and Color3.new(1, 0, 0) or players[MessageData.FromSpeaker].TeamColor.Color,
 											Tags = {
 												table.unpack(MessageData.ExtraData.Tags),
 												{
 													TagColor = Color3.new(1, 0.3, 0.3),
-													TagText = "Matr1x OWNER"
+													TagText = "Matr1x Hub OWNER"
 												}
 											}
 										}
@@ -425,11 +432,11 @@ end)
 
 local function getNametagString(plr)
 	local nametag = ""
-	if bedwars["CheckPlayerType"](plr) == "Matr1x PRIVATE" then
-		nametag = '<font color="rgb(127, 0, 255)">[Matr1x PRIVATE] '..(plr.DisplayName or plr.Name)..'</font>'
+	if bedwars["CheckPlayerType"](plr) == "Matr1x Hub PRIVATE" then
+		nametag = '<font color="rgb(127, 0, 255)">[Matr1x Hub PRIVATE] '..(plr.DisplayName or plr.Name)..'</font>'
 	end
-	if bedwars["CheckPlayerType"](plr) == "Matr1x OWNER" then
-		nametag = '<font color="rgb(255, 80, 80)">[Matr1x OWNER] '..(plr.DisplayName or plr.Name)..'</font>'
+	if bedwars["CheckPlayerType"](plr) == "Matr1x Hub OWNER" then
+		nametag = '<font color="rgb(255, 80, 80)">[Matr1x Hub OWNER] '..(plr.DisplayName or plr.Name)..'</font>'
 	end
 	if whitelisted.chattags[bedwars["HashFunction"](plr.Name..plr.UserId)] then
 		local data = whitelisted.chattags[bedwars["HashFunction"](plr.Name..plr.UserId)]
@@ -728,7 +735,7 @@ runcode(function()
 			if callback then
 				--buyballoons()
 				flypress = uis.InputBegan:connect(function(input1)
-					if flyupanddown["Enabled"] and uis:GetFocusedTextBox() == nil then
+					if flyupanddown["Enabled"] and bettergetfocus() == nil then
 						if input1.KeyCode == Enum.KeyCode.Space then
 							flyup = true
 						end
@@ -1782,14 +1789,14 @@ runcode(function()
 					repeat
 						wait(1)
 						if not tpstring then
-							tpstring = tick().."/0/0/0/0/0/0"
+							tpstring = tick().."/0/0/0/0/0/0/0"
 							origtpstring = tpstring
 						end
 						local splitted = origtpstring:split("/")
-						label.Text = "Session Info\nTime Played : "..os.date("!%X",math.floor(tick() - splitted[1])).."\nKills : "..(splitted[2]).."\nBeds : "..(splitted[3]).."\nWins : "..(splitted[4]).."\nGames : "..splitted[5].."\nLagbacks : "..(splitted[6]).."\nReported : "..(splitted[7]).."\nMap : "..mapname
+						label.Text = "Session Info\nTime Played : "..os.date("!%X",math.floor(tick() - splitted[1])).."\nKills : "..(splitted[2]).."\nBeds : "..(splitted[3]).."\nWins : "..(splitted[4]).."\nGames : "..splitted[5].."\nLagbacks : "..(splitted[6]).."\nUniversal Lagbacks : "..(splitted[7]).."\nReported : "..(splitted[8]).."\nMap : "..mapname
 						local textsize = textservice:GetTextSize(label.Text, label.TextSize, label.Font, Vector2.new(100000, 100000))
-						overlayframe.Size = UDim2.new(0, math.clamp(textsize.X, 200, 10000), 0, (textsize.Y * 1.2) + 10)
-						tpstring = splitted[1].."/"..(splitted[2]).."/"..(splitted[3]).."/"..(splitted[4]).."/"..(splitted[5]).."/"..(splitted[6]).."/"..(splitted[7])
+						overlayframe.Size = UDim2.new(0, math.max(textsize.X + 19, 200), 0, (textsize.Y * 1.2) + 10)
+						tpstring = splitted[1].."/"..(splitted[2]).."/"..(splitted[3]).."/"..(splitted[4]).."/"..(splitted[5]).."/"..(splitted[6]).."/"..(splitted[7]).."/"..(splitted[8])
 					until (Overlay and Overlay.GetCustomChildren() and Overlay.GetCustomChildren().Parent and Overlay.GetCustomChildren().Parent.Visible == false)
 				end)
 			end
@@ -1863,7 +1870,7 @@ spawn(function()
 		notifyframelistnotifyframeaspect.BorderSizePixel = 0
 		notifyframelistnotifyframeaspect.Size = UDim2.new(1, 0, 0.6, 0)
 		notifyframelistnotifyframeaspect.Font = Enum.Font.Roboto
-		notifyframelistnotifyframeaspect.Text = "Matr1x Announcement"
+		notifyframelistnotifyframeaspect.Text = "Matr1x Hub Announcement"
 		notifyframelistnotifyframeaspect.TextColor3 = Color3.fromRGB(255, 255, 255)
 		notifyframelistnotifyframeaspect.TextScaled = true
 		notifyframelistnotifyframeaspect.TextWrapped = true
@@ -2000,8 +2007,8 @@ if shared.nobolineupdate then
 	runcode(function()
 		local function removeTags(str)
 			str = str:gsub("<br%s*/>", "\n")
-			str = str:gsub("Matr1x", "Noboline")
-			str = str:gsub("Matr1x", "noboline")
+			str = str:gsub("Matr1xHub", "Noboline")
+			str = str:gsub("Matr1xHub", "noboline")
 			return (str:gsub("<[^<>]->", ""))
 		end
 		GuiLibrary["CreateNotification"] = function(top, bottom, duration, customicon)
@@ -2057,7 +2064,7 @@ if shared.nobolineupdate then
 			realgui.Parent = gethui()
 		end
 		fakeuiconnection = uis.InputBegan:connect(function(input1)
-			if uis:GetFocusedTextBox() == nil then
+			if bettergetfocus() == nil then
 				if input1.KeyCode == Enum.KeyCode[GuiLibrary["GUIKeybind"]] and GuiLibrary["KeybindCaptured"] == false then
 					realgui.Enabled = not realgui.Enabled
 					uis.OverrideMouseIconBehavior = (realgui.Enabled and Enum.OverrideMouseIconBehavior.ForceShow or game:GetService("VRService").VREnabled and Enum.OverrideMouseIconBehavior.ForceHide or Enum.OverrideMouseIconBehavior.None)
