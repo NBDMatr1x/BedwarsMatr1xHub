@@ -1,7 +1,7 @@
 repeat task.wait() until game:IsLoaded() == true
 local injected = true
 local oldrainbow = false
-local customdir = (shared.Matr1xPrivate and "Matr1xprivate/" or "Matr1xHub/")
+local customdir = (shared.Matr1xPrivate and "Matr1xHubprivate/" or "Matr1xHub/")
 local betterisfile = function(file)
 	local suc, res = pcall(function() return readfile(file) end)
 	return suc and res ~= nil
@@ -38,7 +38,7 @@ end
 
 local function checkassetversion()
 	local req = requestfunc({
-		Url = "https://raw.githubusercontent.com/NBDMatr1xBedwars/Matr1xHub/main/assetsversion.dat",
+		Url = "https://raw.githubusercontent.com/NBDMatr1x/BedwarsMatr1xHub/main/assetsversion.dat",
 		Method = "GET"
 	})
 	if req.StatusCode == 200 then
@@ -49,12 +49,12 @@ local function checkassetversion()
 end
 
 if not (getasset and requestfunc and queueteleport) then
-	print("Matr1xHub not supported with your exploit.")
+	print("Matr1x Hub not supported with your exploit.")
 	return
 end
 
 if shared.Matr1xExecuted then
-	error("Matr1xHub Already Injected")
+	error("Matr1x Hub Already Injected")
 	return
 else
 	shared.Matr1xExecuted = true
@@ -76,10 +76,6 @@ if isfolder(customdir.."Profiles") == false then
 	makefolder(customdir.."Profiles")
 end
 if not betterisfile("Matr1xHub/language.dat") then
-	local suc, res = pcall(function() return gethiddenproperty(game:GetService("Players").LocalPlayer, "ReplicatedLocaleId") end)
-	writefile("Matr1xHub/language.dat", suc and res or "en-us")
-end
-if not pcall(function() return GetURL("translations/"..readfile("Matr1xHub/language.dat")..".Matr1xtranslation") end) then
 	writefile("Matr1xHub/language.dat", "en-us")
 end
 local assetver = checkassetversion()
@@ -864,8 +860,8 @@ local function UpdateHud()
 			table.sort(tableofmodules, function(a, b) return a["Text"]:lower() < b["Text"]:lower() end)
 		else
 			table.sort(tableofmodules, function(a, b) 
-				local textsize1 = (translations[a["Text"]] ~= nil and translations[a["Text"]] or a["Text"])..(a["ExtraText"] and a["ExtraText"]() or "")
-				local textsize2 = (translations[b["Text"]] ~= nil and translations[b["Text"]] or b["Text"])..(b["ExtraText"] and b["ExtraText"]() or "")
+				local textsize1 = (translations[a["Text"]] ~= nil and translations[a["Text"]] or a["Text"])..(a["ExtraText"]() ~= "" and " "..a["ExtraText"]() or "")
+				local textsize2 = (translations[b["Text"]] ~= nil and translations[b["Text"]] or b["Text"])..(b["ExtraText"]() ~= "" and " "..b["ExtraText"]() or "")
 				textsize1 = game:GetService("TextService"):GetTextSize(textsize1, onetext.TextSize, onetext.Font, Vector2.new(1000000, 1000000))
 				textsize2 = game:GetService("TextService"):GetTextSize(textsize2, onetext.TextSize, onetext.Font, Vector2.new(1000000, 1000000))
 				return textsize1.X > textsize2.X 
@@ -982,7 +978,7 @@ TextGui.CreateToggle({
 		onething.Visible = callback
 		UpdateHud()
 	end,
-	["HoverText"] = "Renders a Matr1xHub watermark"
+	["HoverText"] = "Renders a Matr1x Hub watermark"
 })
 local textguigradient = TextGui.CreateToggle({
 	["Name"] = "Gradient Logo",
@@ -1167,6 +1163,7 @@ TargetInfoBackground = TargetInfo.CreateToggle({
 })
 local oldhealth = 100
 local allowedtween = true
+local healthtween
 TargetInfo.GetCustomChildren().Parent:GetPropertyChangedSignal("Size"):connect(function()
 	if TargetInfo.GetCustomChildren().Parent.Size ~= UDim2.new(0, 220, 0, 0) then
 		targetinfobkg3.Position = UDim2.new(0, 0, 0, -5)
@@ -1183,7 +1180,9 @@ shared.Matr1xTargetInfo = {
 				targetimage.Image = 'rbxthumb://type=AvatarHeadShot&id='..v["UserId"]..'&w=420&h=420'
 				targethealthgreen:TweenSize(UDim2.new(math.clamp(v["Health"] / v["MaxHealth"], 0, 1), 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.25, true)
 				targethealthyellow:TweenSize(UDim2.new(math.clamp((v["Health"] / v["MaxHealth"]) - 1, 0, 1), 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.25, true)
-				targethealthgreen.BackgroundColor3 = HealthbarColorTransferFunction(v["Health"] / v["MaxHealth"])
+				if healthtween then healthtween:Cancel() end
+				healthtween = game:GetService("TweenService"):Create(targethealthgreen, TweenInfo.new(0.25, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {BackgroundColor3 = HealthbarColorTransferFunction(v["Health"] / v["MaxHealth"])})
+				healthtween:Play()
 				targetname.Text = (TargetInfoDisplayNames["Enabled"] and plr and plr.DisplayName or i)
 			end
 		end
@@ -1623,7 +1622,7 @@ if shared.Matr1xIndependent then
 		if not shared.Matr1xSwitchServers then
 			if blatantmode["Enabled"] then
 				pcall(function()
-					local frame = GuiLibrary["CreateNotification"]("Blatant Enabled", "Matr1xHub is now in Blatant Mode.", 5.5, "assets/WarningNotification.png")
+					local frame = GuiLibrary["CreateNotification"]("Blatant Enabled", "Matr1x Hub is now in Blatant Mode.", 5.5, "assets/WarningNotification.png")
 					frame.Frame.Frame.ImageColor3 = Color3.fromRGB(236, 129, 44)
 				end)
 			end
@@ -1652,8 +1651,8 @@ else
 		end
 	end
 	if shared.Matr1xPrivate then
-		if pcall(function() readfile("Matr1xprivate/CustomModules/"..game.PlaceId..".lua") end) then
-			loadstring(readfile("Matr1xprivate/CustomModules/"..game.PlaceId..".lua"))()
+		if pcall(function() readfile("Matr1xHubprivate/CustomModules/"..game.PlaceId..".lua") end) then
+			loadstring(readfile("Matr1xHubprivate/CustomModules/"..game.PlaceId..".lua"))()
 		end	
 	end
 	GuiLibrary["LoadSettings"](shared.Matr1xCustomProfile)
@@ -1669,7 +1668,7 @@ else
 	if not shared.Matr1xSwitchServers then
 		if blatantmode["Enabled"] then
 			pcall(function()
-				local frame = GuiLibrary["CreateNotification"]("Blatant Enabled", "Matr1xHub is now in Blatant Mode.", 5.5, "assets/WarningNotification.png")
+				local frame = GuiLibrary["CreateNotification"]("Blatant Enabled", "Matr1x Hub is now in Blatant Mode.", 5.5, "assets/WarningNotification.png")
 				frame.Frame.Frame.ImageColor3 = Color3.fromRGB(236, 129, 44)
 			end)
 		end
