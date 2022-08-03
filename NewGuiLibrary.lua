@@ -1,6 +1,6 @@
 if shared.Matr1xExecuted then
 	local VERSION = "4.08"..(shared.Matr1xPrivate and " PRIVATE" or "")
-	local customdir = (shared.Matr1xPrivate and "Matr1xprivate/" or "Matr1xHub/")
+	local customdir = (shared.Matr1xPrivate and "Matr1xHubprivate/" or "Matr1xHub/")
 	local rainbowvalue = 0
 	local cam = game:GetService("Workspace").CurrentCamera
 	local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end
@@ -301,7 +301,7 @@ if shared.Matr1xExecuted then
 		vertext.Position = UDim2.new(1 / api["MainRescale"].Scale, -(vertextsize.X) - 20, 1 / api["MainRescale"].Scale, -25)
 	end)
 
-	local function dragGUI(gui, tab)
+	local function dragGUI(gui)
 		spawn(function()
 			local dragging
 			local dragInput
@@ -417,14 +417,14 @@ if shared.Matr1xExecuted then
 			if delfile then delfile("Matr1xHub/Profiles/GUIPositions.Matr1xprofile.txt") end
 		end
 		if shared.Matr1xPrivate then
-			if betterisfile("Matr1xprivate/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt") == false and betterisfile("Matr1xHub/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt") then
-				writefile("Matr1xprivate/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt", readfile("Matr1xHub/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt"))
+			if betterisfile("Matr1xHubprivate/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt") == false and betterisfile("Matr1xHub/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt") then
+				writefile("Matr1xHubprivate/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt", readfile("Matr1xHub/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt"))
 			end
-			if betterisfile("Matr1xprivate/Profiles/"..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofiles.txt") == false and betterisfile("Matr1xHub/Profiles/"..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofiles.txt") then
-				writefile("Matr1xprivate/Profiles/"..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofiles.txt", readfile("Matr1xHub/Profiles/"..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofiles.txt"))
+			if betterisfile("Matr1xHubprivate/Profiles/"..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofiles.txt") == false and betterisfile("Matr1xHub/Profiles/"..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofiles.txt") then
+				writefile("Matr1xHubprivate/Profiles/"..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofiles.txt", readfile("Matr1xHub/Profiles/"..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofiles.txt"))
 			end
-			if betterisfile("Matr1xprivate/Profiles/"..(api["CurrentProfile"] == "default" and "" or api["CurrentProfile"])..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofile.txt") == false and betterisfile("Matr1xHub/Profiles/"..(api["CurrentProfile"] == "default" and "" or api["CurrentProfile"])..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofile.txt") then
-				writefile("Matr1xprivate/Profiles/"..(api["CurrentProfile"] == "default" and "" or api["CurrentProfile"])..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofile.txt", readfile("Matr1xHub/Profiles/"..(api["CurrentProfile"] == "default" and "" or api["CurrentProfile"])..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofile.txt"))
+			if betterisfile("Matr1xHubprivate/Profiles/"..(api["CurrentProfile"] == "default" and "" or api["CurrentProfile"])..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofile.txt") == false and betterisfile("Matr1xHub/Profiles/"..(api["CurrentProfile"] == "default" and "" or api["CurrentProfile"])..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofile.txt") then
+				writefile("Matr1xHubprivate/Profiles/"..(api["CurrentProfile"] == "default" and "" or api["CurrentProfile"])..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofile.txt", readfile("Matr1xHub/Profiles/"..(api["CurrentProfile"] == "default" and "" or api["CurrentProfile"])..(shared.CustomSaveMatr1x or game.PlaceId)..".Matr1xprofile.txt"))
 			end
 		end
 		local success2, result2 = pcall(function()
@@ -681,7 +681,7 @@ if shared.Matr1xExecuted then
 		settingsbox2.TextColor3 = Color3.fromRGB(80, 80, 80)
 		settingsbox2.Font = Enum.Font.SourceSans
 		settingsbox2.TextXAlignment = Enum.TextXAlignment.Right
-		settingsbox2.Text = "Matr1xHub "..VERSION.."  "
+		settingsbox2.Text = "Matr1x Hub "..VERSION.."  "
 		settingsbox2.TextSize = 16
 		settingsbox2.Parent = windowtitle
 		local settingsbox3 = Instance.new("Frame")
@@ -718,7 +718,7 @@ if shared.Matr1xExecuted then
 							["nonce"] = game:GetService("HttpService"):GenerateGUID(false),
 							["args"] = {
 								["invite"] = {["code"] = "QzsyYz7cZP"},
-								["code"] = "QzsyYz7cZP ",
+								["code"] = "QzsyYz7cZP",
 							},
 							["cmd"] = "INVITE_BROWSER"
 						}
@@ -6357,8 +6357,16 @@ if shared.Matr1xExecuted then
 
 	local holdingcontrol = false
 
+	local function bettergetfocus()
+		if KRNL_LOADED then 
+			return ((game:GetService("Players").LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar:IsFocused() or searchbar:IsFocused()) and true or nil) 
+		else
+			return game:GetService("UserInputService"):GetFocusedTextBox()
+		end
+	end
+
 	api["KeyInputHandler"] = game:GetService("UserInputService").InputBegan:connect(function(input1)
-		if game:GetService("UserInputService"):GetFocusedTextBox() == nil then
+		if bettergetfocus() == nil then
 			if input1.KeyCode == Enum.KeyCode[api["GUIKeybind"]] and api["KeybindCaptured"] == false then
 				clickgui.Visible = not clickgui.Visible
 				game:GetService("UserInputService").OverrideMouseIconBehavior = (clickgui.Visible and Enum.OverrideMouseIconBehavior.ForceShow or game:GetService("VRService").VREnabled and Enum.OverrideMouseIconBehavior.ForceHide or Enum.OverrideMouseIconBehavior.None)
