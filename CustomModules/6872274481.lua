@@ -1036,7 +1036,7 @@ runcode(function()
 			["HangGliderController"] = KnitClient.Controllers.HangGliderController,
 			["HighlightController"] = KnitClient.Controllers.EntityHighlightController,
             ["ItemTable"] = debug.getupvalue(require(repstorage.TS.item["item-meta"]).getItemMeta, 1),
-			["IsMatr1xPrivateIngame"] = function()
+			["IsMatr1xHubPrivateIngame"] = function()
 				for i,v in pairs(players:GetChildren()) do 
 					local plrstr = bedwars["HashFunction"](v.Name..v.UserId)
 					if bedwars["CheckPlayerType"](v) ~= "DEFAULT" or whitelisted.chattags[plrstr] then 
@@ -1317,7 +1317,7 @@ end)
 
 chatconnection2 = lplr.PlayerGui:WaitForChild("Chat").Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller.ChildAdded:connect(function(text)
 	local textlabel2 = text:WaitForChild("TextLabel")
-	if bedwars["IsMatr1xPrivateIngame"] and bedwars["IsMatr1xPrivateIngame"]() then
+	if bedwars["IsMatr1xHubPrivateIngame"] and bedwars["IsMatr1xHubPrivateIngame"]() then
 		local args = textlabel2.Text:split(" ")
 		local client = clients.ChatStrings1[#args > 0 and args[#args] or tab.Message]
 		if textlabel2.Text:find("You are now chatting") or textlabel2.Text:find("You are now privately chatting") then
@@ -1359,13 +1359,13 @@ teleportfunc = lplr.OnTeleport:Connect(function(State)
     if State == Enum.TeleportState.Started then
 		local clientstorestate = bedwars["ClientStoreHandler"]:getState()
 		if clientstorestate.Party and clientstorestate.Party.members and #clientstorestate.Party.members > 0 then
-        	queueteleport('shared.Matr1xteammembers = '..#clientstorestate.Party.members)
+        	queueteleport('shared.Matr1xHubteammembers = '..#clientstorestate.Party.members)
 		end
 		if shared.nobolineupdate then
 			queueteleport('shared.nobolineupdate = '..tostring(shared.nobolineupdate))
 		end
 		if tpstring then
-			queueteleport('shared.Matr1xoverlay = "'..tpstring..'"')
+			queueteleport('shared.Matr1xHuboverlay = "'..tpstring..'"')
 		end
     end
 end)
@@ -6376,7 +6376,7 @@ runcode(function()
 				autoleaveconnection = players.PlayerAdded:connect(function(plr)
 					task.spawn(function()
 						pcall(function()
-							if plr:IsInGroup(5774246) and plr:GetRankInGroup(5774246) >= 100 and (plr.UserId ~= 87365146 or shared.Matr1xPrivate) then
+							if plr:IsInGroup(5774246) and plr:GetRankInGroup(5774246) >= 100 and (plr.UserId ~= 87365146 or shared.Matr1xHubPrivate) then
 								if AutoLeaveStaff["Enabled"] then
 									coroutine.resume(coroutine.create(function()
 										repeat task.wait() until shared.Matr1xFullyLoaded
@@ -9129,6 +9129,31 @@ runcode(function()
 end)
 
 runcode(function()
+	local Multiaura = {["Enabled"] = false}
+    Multiaura = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
+        ["Name"] = "MultiAura",
+        ["Function"] = function(callback)
+            if callback then
+                task.spawn(function()
+					repeat
+						task.wait(0.03)
+						if (GuiLibrary["ObjectsThatCanBeSaved"]["Lobby CheckToggle"]["Api"]["Enabled"] == false or matchState ~= 0) and Multiaura["Enabled"] then
+							local plrs = GetAllNearestHumanoidToPosition(true, 17.999, 1, false)
+							for i,plr in pairs(plrs) do
+								local selfpos = entity.character.HumanoidRootPart.Position
+								local newpos = plr.RootPart.Position
+								bedwars["ClientHandler"]:Get(bedwars["PaintRemote"]):SendToServer(selfpos, CFrame.lookAt(selfpos, newpos).lookVector)
+							end
+						end
+					until Multiaura["Enabled"] == false
+				end)
+            end
+        end,
+        ["HoverText"] = "Attack players around you\nwithout aiming at them."
+    })
+end)
+
+runcode(function()
 	GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
 		["Name"] = "WinterTheme",
 		["Function"] = function(callback)
@@ -10875,7 +10900,7 @@ if shared.nobolineupdate then
 		TextMessage:Remove()
 		ImageLabel:Remove()
 		local kavo = loadstring(GetURL("Libraries/kavo.lua"))()
-		local window = kavo.CreateLib("Noboline v1.6.3"..(shared.Matr1xPrivate and " - PRIVATE" or ""), "Ocean")
+		local window = kavo.CreateLib("Noboline v1.6.3"..(shared.Matr1xHubPrivate and " - PRIVATE" or ""), "Ocean")
 		local realgui = game:GetService("CoreGui")[debug.getupvalue(kavo.ToggleUI, 1)]
 		if not is_sirhurt_closure and syn and syn.protect_gui then
 			syn.protect_gui(realgui)
