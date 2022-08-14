@@ -1,7 +1,7 @@
 repeat task.wait() until game:IsLoaded() == true
 local injected = true
 local oldrainbow = false
-local customdir = (shared.Matr1xPrivate and "Matr1xHubprivate/" or "Matr1xHub/")
+local customdir = (shared.Matr1xHubPrivate and "Matr1xHubprivate/" or "Matr1xHub/")
 local betterisfile = function(file)
 	local suc, res = pcall(function() return readfile(file) end)
 	return suc and res ~= nil
@@ -1411,7 +1411,10 @@ end
 
 GUISettings.CreateToggle({
 	["Name"] = "Blur Background", 
-	["Function"] = function(callback) GuiLibrary["MainBlur"].Size = (callback and 25 or 0) end,
+	["Function"] = function(callback) 
+		GuiLibrary["MainBlur"].Size = (callback and 25 or 0) 
+		game:GetService("RunService"):SetRobloxGuiFocused(GuiLibrary["MainGui"].ScaledGui.ClickGui.Visible and callback) 
+	end,
 	["Default"] = true,
 	["HoverText"] = "Blur the background of the GUI"
 })
@@ -1491,8 +1494,8 @@ local teleportfunc = game:GetService("Players").LocalPlayer.OnTeleport:Connect(f
 		if shared.Matr1xDeveloper then
 			teleportstr = 'shared.Matr1xDeveloper = true '..teleportstr
 		end
-		if shared.Matr1xPrivate then
-			teleportstr = 'shared.Matr1xPrivate = true '..teleportstr
+		if shared.Matr1xHubPrivate then
+			teleportstr = 'shared.Matr1xHubPrivate = true '..teleportstr
 		end
 		if shared.Matr1xCustomProfile then 
 			teleportstr = "shared.Matr1xCustomProfile = '"..shared.Matr1xCustomProfile.."'"..teleportstr
@@ -1516,7 +1519,7 @@ GuiLibrary["SelfDestruct"] = function()
 	end
 	GuiLibrary["SelfDestructEvent"]:Fire()
 	shared.Matr1xExecuted = nil
-	shared.Matr1xPrivate = nil
+	shared.Matr1xHubPrivate = nil
 	shared.Matr1xFullyLoaded = nil
 	shared.Matr1xSwitchServers = nil
 	shared.GuiLibrary = nil
@@ -1530,18 +1533,18 @@ GuiLibrary["SelfDestruct"] = function()
 	end
 	teleportfunc:Disconnect()
 	GuiLibrary["MainGui"]:Remove()
-	GuiLibrary["MainBlur"]:Remove()
+	game:GetService("RunService"):SetRobloxGuiFocused(false)	
 end
 
 GeneralSettings.CreateButton2({
 	["Name"] = "RESET CURRENT PROFILE", 
 	["Function"] = function()
-		local Matr1xprivate = shared.Matr1xPrivate
+		local Matr1xHubprivate = shared.Matr1xHubPrivate
 		GuiLibrary["SelfDestruct"]()
 		delfile(customdir.."Profiles/"..(GuiLibrary["CurrentProfile"] == "default" and "" or GuiLibrary["CurrentProfile"])..game.PlaceId..".Matr1xprofile.txt")
 		shared.Matr1xSwitchServers = true
 		shared.Matr1xOpenGui = true
-		shared.Matr1xPrivate = Matr1xprivate
+		shared.Matr1xHubPrivate = Matr1xHubprivate
 		loadstring(GetURL("NewMainScript.lua"))()
 	end
 })
@@ -1632,7 +1635,7 @@ if shared.Matr1xIndependent then
 		end
 		if shared.Matr1xOpenGui then
 			GuiLibrary["MainGui"].ScaledGui.ClickGui.Visible = true
-			GuiLibrary["MainBlur"].Enabled = true	
+			game:GetService("RunService"):SetRobloxGuiFocused(GuiLibrary["MainBlur"].Size ~= 0) 
 			shared.Matr1xOpenGui = nil
 		end
 
@@ -1650,7 +1653,7 @@ else
 			loadstring(publicrepo)()
 		end
 	end
-	if shared.Matr1xPrivate then
+	if shared.Matr1xHubPrivate then
 		if pcall(function() readfile("Matr1xHubprivate/CustomModules/"..game.PlaceId..".lua") end) then
 			loadstring(readfile("Matr1xHubprivate/CustomModules/"..game.PlaceId..".lua"))()
 		end	
@@ -1678,7 +1681,7 @@ else
 	end
 	if shared.Matr1xOpenGui then
 		GuiLibrary["MainGui"].ScaledGui.ClickGui.Visible = true
-		GuiLibrary["MainBlur"].Enabled = true	
+		game:GetService("RunService"):SetRobloxGuiFocused(GuiLibrary["MainBlur"].Size ~= 0) 
 		shared.Matr1xOpenGui = nil
 	end
 
