@@ -1,6 +1,6 @@
 if shared.Matr1xExecuted then
-	local VERSION = "4.08"..(shared.Matr1xPrivate and " PRIVATE" or "")
-	local customdir = (shared.Matr1xPrivate and "Matr1xHubprivate/" or "Matr1xHub/")
+	local VERSION = "4.08"..(shared.Matr1xHubPrivate and " PRIVATE" or "")
+	local customdir = (shared.Matr1xHubPrivate and "Matr1xHubprivate/" or "Matr1xHub/")
 	local rainbowvalue = 0
 	local cam = game:GetService("Workspace").CurrentCamera
 	local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end
@@ -110,16 +110,19 @@ if shared.Matr1xExecuted then
 		local gui = Instance.new("ScreenGui")
 		gui.Name = randomString()
 		gui.DisplayOrder = 999
+		gui.OnTopOfCoreBlur = true
 		gui.Parent = gethui()
 		api["MainGui"] = gui
 	elseif not is_sirhurt_closure and syn and syn.protect_gui then
 		local gui = Instance.new("ScreenGui")
 		gui.Name = randomString()
 		gui.DisplayOrder = 999
+		gui.OnTopOfCoreBlur = true
 		syn.protect_gui(gui)
 		gui.Parent = game:GetService("CoreGui")
 		api["MainGui"] = gui
 	elseif game:GetService("CoreGui"):FindFirstChild('RobloxGui') then
+		game:GetService("CoreGui").RobloxGui.OnTopOfCoreBlur = true
 		api["MainGui"] = game:GetService("CoreGui").RobloxGui
 	end
 
@@ -291,10 +294,7 @@ if shared.Matr1xExecuted then
 	hudgui.BackgroundTransparency = 1
 	hudgui.Visible = true
 	hudgui.Parent = scaledgui
-	api["MainBlur"] = Instance.new("BlurEffect")
-	api["MainBlur"].Size = 25
-	api["MainBlur"].Parent = game:GetService("Lighting")
-	api["MainBlur"].Enabled = false
+	api["MainBlur"] = {Size = 25}
 	api["MainRescale"] = Instance.new("UIScale")
 	api["MainRescale"].Parent = scaledgui
 	api["MainRescale"]:GetPropertyChangedSignal("Scale"):connect(function()
@@ -416,7 +416,7 @@ if shared.Matr1xExecuted then
 			writefile("Matr1xHub/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt", readfile("Matr1xHub/Profiles/GUIPositions.Matr1xprofile.txt"))
 			if delfile then delfile("Matr1xHub/Profiles/GUIPositions.Matr1xprofile.txt") end
 		end
-		if shared.Matr1xPrivate then
+		if shared.Matr1xHubPrivate then
 			if betterisfile("Matr1xHubprivate/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt") == false and betterisfile("Matr1xHub/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt") then
 				writefile("Matr1xHubprivate/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt", readfile("Matr1xHub/Profiles/"..(game.GameId).."GUIPositions.Matr1xprofile.txt"))
 			end
@@ -597,13 +597,13 @@ if shared.Matr1xExecuted then
 			api["SaveSettings"]()
 			api["CurrentProfile"] = realprofile
 		end
-		local Matr1xprivate = shared.Matr1xPrivate
+		local Matr1xHubprivate = shared.Matr1xHubPrivate
 		local oldindependent = shared.Matr1xIndependent
 		api["SelfDestruct"]()
 		if not oldindependent then
 			shared.Matr1xSwitchServers = true
 			shared.Matr1xOpenGui = (clickgui.Visible)
-			shared.Matr1xPrivate = Matr1xprivate
+			shared.Matr1xPrivate = Matr1xHubprivate
 			loadstring(GetURL("NewMainScript.lua"))()
 		end
 	end
@@ -6370,7 +6370,7 @@ if shared.Matr1xExecuted then
 			if input1.KeyCode == Enum.KeyCode[api["GUIKeybind"]] and api["KeybindCaptured"] == false then
 				clickgui.Visible = not clickgui.Visible
 				game:GetService("UserInputService").OverrideMouseIconBehavior = (clickgui.Visible and Enum.OverrideMouseIconBehavior.ForceShow or game:GetService("VRService").VREnabled and Enum.OverrideMouseIconBehavior.ForceHide or Enum.OverrideMouseIconBehavior.None)
-				api["MainBlur"].Enabled = clickgui.Visible	
+				game:GetService("RunService"):SetRobloxGuiFocused(clickgui.Visible and api["MainBlur"].Size ~= 0)	
 				if OnlineProfilesBigFrame.Visible then
 					OnlineProfilesBigFrame.Visible = false
 				end
